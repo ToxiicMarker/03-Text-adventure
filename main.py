@@ -28,20 +28,20 @@ game['rooms']
 def render(game,current):
     '''Display the current location'''
     print ('You are at the' + game['rooms'][current]['name'])
-    print (game['rooms']['current']['desc'])
+    print (game['rooms'][current]['desc'])
     return True
 
-def update(game,current:response):
+def update(game,current,response):
     '''Update our location, if possible, etc'''
     for e in game['rooms'][current]['exits']:
       if response == e['verb']:
         current = e['target']
 
-    return True
+    return current
 
 def check_input():
     '''Get user input'''
-    response = input('What would you like to do?')
+    response = input('What would you like to do?').upper()
     return response
 
 
@@ -55,14 +55,16 @@ def main():
 
     current = 'WHOUS'
 
-quit = False
-while not quit:
-    #render
-  render()
-    #check player input
-  check_input()
-    #update
-  update()
+    quit = False
+    while not quit:
+      #render
+      render(game,current)
+      #check player input
+      response = check_input()
+
+      #update
+      current = update(game,current,response)
+        
  
 
 
