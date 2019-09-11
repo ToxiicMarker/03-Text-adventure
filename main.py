@@ -8,19 +8,44 @@ assert sys.version_info >= version, "This script requires at least Python {0}.{1
 logging.basicConfig(format='[%(filename)s:%(lineno)d] %(message)s', level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
+'''Notes
+.upper()
+.strip()
+.lower()
 
-def render():
+game
+game['verbs']
+game['rooms']
+              ['WHOUS']
+              ['NHOUS']
+                       ['name']
+                       ['description']
+                       ['exits']
+                       ['inventory']
+
+'''
+
+def render(game,current):
     '''Display the current location'''
+    print ('You are at the' + game['rooms'][current]['name'])
+    print (game['rooms']['current']['desc'])
     return True
 
-def update():
+def update(game,current:response):
     '''Update our location, if possible, etc'''
+    for e in game['rooms'][current]['exits']:
+      if response == e['verb']:
+        current = e['target']
+
     return True
 
 def check_input():
     '''Get user input'''
-  response = input('What would you like to do?')
+    response = input('What would you like to do?')
     return response
+
+
+
 
 def main():
     game = {} #empty dictionary
@@ -29,17 +54,16 @@ def main():
     # Your game goes here!
 
     current = 'WHOUS'
-  quit = False
-  while not quit:
-    #render
-    render()
-    #check player input
-    check_input()
-    #update
-    update()
-   
 
-    return True
+quit = False
+while not quit:
+    #render
+  render()
+    #check player input
+  check_input()
+    #update
+  update()
+ 
 
 
 
